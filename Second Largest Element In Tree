@@ -1,0 +1,71 @@
+public class Solution {
+
+/*	TreeNode structure 
+ * 
+ * class TreeNode<T> {
+		T data;
+		ArrayList<TreeNode<T>> children;
+
+		TreeNode(T data){
+			this.data = data;
+			children = new ArrayList<TreeNode<T>>();
+		}
+	}*/
+    
+    public static class xNode<T> {
+	public TreeNode<T> max;
+	public TreeNode<T> smax;
+	
+	public xNode() {
+		// TODO Auto-generated constructor stub
+		max=null;
+		smax=null;
+	}
+}
+	
+		
+	
+	public static TreeNode<Integer> findSecondLargest(TreeNode<Integer> root){
+
+
+		// Write your code here
+        xNode<Integer> node=new xNode<>();
+		findLg(root, node);
+		return node.smax;
+
+	}
+    
+    public static void findLg(TreeNode<Integer> root, xNode<Integer> node) {
+			
+			if(node.max==null) {
+				node.max=root;
+			}else if(node.smax==null) {
+				if(root.data>=node.max.data) {
+					if(root.data!=node.max.data) {
+						TreeNode<Integer> temp=node.max;
+						node.max=root;
+						node.smax=temp;
+						
+					}
+					
+				}else {
+					node.smax=root;
+				}
+			}else if(root.data>node.max.data) {
+				TreeNode<Integer> temp=node.max;
+				node.max=root;
+				if(temp.data>node.smax.data) {
+					node.smax=temp;
+				}
+			}else{
+				if(root.data>node.smax.data && root.data<node.max.data) {
+					node.smax=root;
+				}
+			}
+			
+			
+			for(int i=0; i<root.children.size(); i++) {
+				findLg(root.children.get(i), node);
+			}
+		}
+}
