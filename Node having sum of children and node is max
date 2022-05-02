@@ -1,0 +1,87 @@
+public class Solution {
+
+/*	TreeNode structure 
+ * 
+ * class TreeNode<T> {
+		T data;
+		ArrayList<TreeNode<T>> children;
+
+		TreeNode(T data){
+			this.data = data;
+			children = new ArrayList<TreeNode<T>>();
+		}
+	}*/
+	
+	
+// 	public static TreeNode<Integer> maxSumNode(TreeNode<Integer> root){
+//         TreeNode<Integer> ans=root;
+//         int sum=root.data;
+//         for(int i=0;i<root.children.size();i++){
+//             sum+=root.children.get(i).data;
+//         }
+//         for(int i=0;i<root.children.size();i++){
+//             TreeNode<Integer> x=maxSumNode(root.children.get(i));
+//             int xsum=x.data;
+//             for(int j=0;j<x.children.size();j++){
+//                 xsum+=x.children.get(j).data;
+//             }
+//             if(xsum>sum){
+//                 sum=xsum;
+//                 ans=x;
+//             }
+//         }
+//         return ans;
+        
+// 	}
+//     public static TreeNode<Integer> maxSumNode(TreeNode<Integer> root){
+//         return maxSumNode(root,root.data);
+//     }
+//     public static TreeNode<Integer> maxSumNode(TreeNode<Integer> root,int sum){
+//         TreeNode<Integer> ans=root;
+//         for(int i=0;i<root.children.size();i++){
+//             sum+=root.children.get(i).data;
+//         }
+//         for(int i=0;i<root.children.size();i++){
+//             TreeNode<Integer> x=maxSumNode(root.children.get(i),x.data);
+//             if(xsum>sum){
+//                 sum=xsum;
+//                  ans=x;
+//              }
+//         }
+//         return ans;
+        
+//     }
+    public class Pair(T,V){
+        public T TreeNode;
+        public V xsum;
+    }
+    public static TreeNode<Integer> maxSumNode(TreeNode<Integer> root){
+        Pair<TreeNode<Integer>,Integer> output=helper(root);
+        return output.TreeNode;
+    }
+    public Pair<TreeNode<Integer>,Integer> helper(TreeNode<Integer> root){
+        if(root==null){
+            Pair<TreeNode<Integer>,Integer> output=new Pair<>();
+            output.TreeNode=null;
+            output.xsum=0;
+            return output;
+        }
+        TreeNode<Integer> ans=root;
+        int sum=root.data;
+        for(int i=0;i<root.children.size();i++){
+            sum+=root.children.get(i).data;
+        }
+        for(int i=0;i<root.children.size();i++){
+            Pair<TreeNode<Integer>,Integer> out=maxSumNode(root.children.get(i));
+            if(out.xsum>sum){
+                Pair<TreeNode<Integer>,Integer> output= new Pair<>();
+                output.TreeNode=out.TreeNode;
+                output.xsum=out.xsum;
+            }
+        }
+        return output;
+    }
+    
+	
+		
+}
